@@ -1,0 +1,81 @@
+
+    /* Garantir que html, body e #app ocupem 100% da altura */
+    html, body, #app {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* Tornar #app um flex container em coluna que ocupa toda a viewport */
+    #app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* assegura no mínimo a altura da janela */
+    }
+
+    header {
+      background: #333333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: bold;
+    }
+
+    /* Main contém as secções. Não precisa de align-items centrar verticalmente */
+    main {
+      /* main ocupa o espaço disponível entre header e footer */
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 0;
+    }
+
+    /* O section mantém largura fixa, com aparência de cartão */
+    .card {
+      width: 90%;
+      max-width: 700px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.08);
+    }
+
+    /* FORÇA o footer a ficar no fundo: usar margin-top:auto é uma alternativa se footer estivesse dentro de outro flex. Aqui já é garantido por #app */
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 16px;
+      text-align: center;
+      /* opcional: faz com que o footer não "flutue" */
+      flex-shrink: 0;
+    }
+
+    .social-icons img {
+      width: 28px;
+      margin: 0 6px;
+      vertical-align: middle;
+    }
+
+    /* Para simular pouco conteúdo — podes remover depois */
+    .small-note {
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    /* Responsivo */
+    @media (max-width: 480px) {
+      .card { padding: 16px; }
+    }
+  

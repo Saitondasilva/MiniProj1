@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SPA Responsivo</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    html, body, #app {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    #app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ========== HEADER ========== */
+    header {
+      background: #D0CB3A;
+      color: #fff;
+      padding: 1rem;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo img {
+      height: 60px;
+      width: auto;
+    }
+
+    .search-note-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .search-wrapper input[type="search"] {
+      width: 100%;
+      padding: 8px 32px 8px 12px;
+      border-radius: 16px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .search-wrapper .search-icon {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .search-note {
+      white-space: nowrap;
+    }
+
+    /* MENU */
+    nav {
+      margin-top: 12px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* ========== MAIN ========== */
+    main {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 0;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 700px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.08);
+    }
+
+    .small-note {
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #D0CB3A;
+      color: #fff;
+      padding: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .social-icons img {
+      width: 28px;
+      margin: 0 6px;
+      vertical-align: middle;
+    }
+
+    /* ========== RESPONSIVO ========== */
+    @media (max-width: 800px) {
+
+      .menu-toggle {
+        display: block;
+        margin-left: auto;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .search-note-container {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .search-note {
+        white-space: normal;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <img src="curriculo.png" alt="Logo">
+        </div>
+
+        <div class="search-note-container">
+          <div class="search-wrapper">
+            <input type="search" placeholder="Buscar currículos aqui" v-model="search">
+            <span class="search-icon">&#128269;</span>
+          </div>
+          <p class="search-note">Aprecie o currículo, e informa-te mais</p>
+        </div>
+
+        <span class="menu-toggle" @click="menuOpen = !menuOpen">&#9776;</span>
+      </div>
+
+      <nav :class="{ show: menuOpen }">
+        <a href="#" @click.prevent="pagina='quem'">Quem Sou Eu</a>
+        <a href="#" @click.prevent="pagina='faco'">O Que Faço</a>
+        <a href="#" @click.prevent="pagina='hobbies'">Hobbies</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <section class="card" v-if="pagina==='quem'">
+        <h2>Quem Sou Eu</h2>
+        <p>Olá! Eu sou {{ nome }}, Mestrando em Engenharia Informática e aplicação WEB, apaixonado por tecnologia.</p>
+        <p class="small-note">Conteúdo curto — o footer deve aparecer no fundo da janela.</p>
+      </section>
+
+      <section class="card" v-if="pagina==='faco'">
+        <h2>O Que Faço</h2>
+        <p>Desenvolvo projetos em HTML, CSS, JS e frameworks como Vue.js.</p>
+      </section>
+
+      <section class="card" v-if="pagina==='hobbies'">
+        <h2>Hobbies</h2>
+        <ul>
+          <li>Programar</li>
+          <li>Tocar guitarra</li>
+          <li>Ler sobre tecnologia</li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© 2025 {{ nome }}</div>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="LinkedIn"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Twitter"></a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return { 
+          nome: 'Saiton Magalhães da Silva', 
+          pagina: 'quem',
+          search: '',
+          menuOpen: false
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
+
